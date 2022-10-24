@@ -289,7 +289,7 @@ def main() -> None:
         listen="0.0.0.0",
         port=int(PORT),
         url_path=TOKEN,
-        webhook_url='https://kokirkitchen.herokuapp.com/' + TOKEN
+        webhook_url='https://kokirbot.herokuapp.com/' + TOKEN
     )
 
     updater.bot.setWebhook('https://kokirkitchen.herokuapp.com/' + TOKEN)
