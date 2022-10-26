@@ -255,7 +255,7 @@ def main() -> None:
             FINISH: [MessageHandler(Filters.text  & ~Filters.command, finish), CommandHandler('start', start)],
             BIO: [MessageHandler(Filters.text & ~Filters.command, bio), CommandHandler('start', start)],
         },
-        fallbacks=[CommandHandler('cancel', cancel)],
+        fallbacks=[CommandHandler('canceled', cancel)],
     )
 
     dispatcher.add_handler(conv_handler)
