@@ -37,7 +37,7 @@ total = 0
 def start(update: Update, context: CallbackContext) -> int:
     """Starts the conversation and asks the user about their gender."""
     user = update.message.from_user
-    reply_keyboard = [['ቁርስ','ምሳ'],['ጁስ'],['ሰርዝ']]
+    reply_keyboard = [['ቁርስ','ምሳ'],['ጁስ']]
     if (col_users.find_one({ 'chat_id': user['id']}) is not None):
         update.message.reply_text(
             'ሰላም! እንኳን ወደ ኮኪር ኪችን በሰላም መጡ'
@@ -66,7 +66,7 @@ def start(update: Update, context: CallbackContext) -> int:
 def again(update: Update, context: CallbackContext) -> int:
     """Starts the conversation and asks the user about their gender."""
     user = update.message.from_user
-    reply_keyboard = [['ቁርስ','ምሳ'],['ጁስ'],['/ሰርዝ']]
+    reply_keyboard = [['ቁርስ','ምሳ'],['ጁስ','ኬክ']]
     update.message.reply_text(
             'ሌላ ትዕዛዝ ይምረጡ'
 
@@ -81,7 +81,7 @@ def again(update: Update, context: CallbackContext) -> int:
     
     
 def register(update: Update, context: CallbackContext) -> int:
-    reply_keyboard = [['ይቀጥሉ'],['/ሰርዝ']]
+    reply_keyboard = [['ይቀጥሉ']]
     no = update.message.text
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -148,7 +148,7 @@ def gender(update: Update, context: CallbackContext) -> int:
 
 
 def photo(update: Update, context: CallbackContext) -> int:
-    reply_keyboard = [['1','2'],['3','4'],['/ሰርዝ']]
+    reply_keyboard = [['1','2'],['3','4']]
     """Stores the photo and asks for a location."""
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -171,7 +171,7 @@ def photo(update: Update, context: CallbackContext) -> int:
 
 def bio(update: Update, context: CallbackContext) -> int:
     """Stores the info about the user and ends the conversation."""
-    reply_keyboard = [['አዎ','አይ'],['/ሰርዝ']]
+    reply_keyboard = [['አዎ','አይ']]
     user = update.message.from_user
     item[-1].update({"amount": int(update.message.text)})  
     
@@ -183,7 +183,7 @@ def bio(update: Update, context: CallbackContext) -> int:
     return FINISH
 
 def finish(update: Update, context: CallbackContext) -> int:
-    reply_keyboard = [['ሌላ ትዕዛዝ'],['/ሰርዝ']]
+    reply_keyboard = [['ሌላ ትዕዛዝ']]
     if(update.message.text=='አዎ'):
         logger.info("User %s canceled the conversation.", update.message.text)
         update.message.reply_text(
