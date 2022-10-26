@@ -37,7 +37,7 @@ total = 0
 def start(update: Update, context: CallbackContext) -> int:
     """Starts the conversation and asks the user about their gender."""
     user = update.message.from_user
-    reply_keyboard = [['ቁርስ','ምሳ'],['ጁስ']]
+    reply_keyboard = [['ቁርስ','ምሳ'],['ጁስ'],['ሰርዝ']]
     if (col_users.find_one({ 'chat_id': user['id']}) is not None):
         update.message.reply_text(
             'ሰላም! እንኳን ወደ ኮኪር ኪችን በሰላም መጡ'
@@ -66,7 +66,7 @@ def start(update: Update, context: CallbackContext) -> int:
 def again(update: Update, context: CallbackContext) -> int:
     """Starts the conversation and asks the user about their gender."""
     user = update.message.from_user
-    reply_keyboard = [['ቁርስ','ምሳ'],['ጁስ','ኬክ']]
+    reply_keyboard = [['ቁርስ','ምሳ'],['ጁስ'],['/ሰርዝ']]
     update.message.reply_text(
             'ሌላ ትዕዛዝ ይምረጡ'
 
@@ -81,7 +81,7 @@ def again(update: Update, context: CallbackContext) -> int:
     
     
 def register(update: Update, context: CallbackContext) -> int:
-    reply_keyboard = [['ይቀጥሉ']]
+    reply_keyboard = [['ይቀጥሉ'],['/ሰርዝ']]
     no = update.message.text
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -148,7 +148,7 @@ def gender(update: Update, context: CallbackContext) -> int:
 
 
 def photo(update: Update, context: CallbackContext) -> int:
-    reply_keyboard = [['1','2'],['3','4']]
+    reply_keyboard = [['1','2'],['3','4'],['/ሰርዝ']]
     """Stores the photo and asks for a location."""
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -171,7 +171,7 @@ def photo(update: Update, context: CallbackContext) -> int:
 
 def bio(update: Update, context: CallbackContext) -> int:
     """Stores the info about the user and ends the conversation."""
-    reply_keyboard = [['አዎ','አይ']]
+    reply_keyboard = [['አዎ','አይ'],['/ሰርዝ']]
     user = update.message.from_user
     item[-1].update({"amount": int(update.message.text)})  
     
@@ -183,7 +183,7 @@ def bio(update: Update, context: CallbackContext) -> int:
     return FINISH
 
 def finish(update: Update, context: CallbackContext) -> int:
-    reply_keyboard = [['ሌላ ትዕዛዝ']]
+    reply_keyboard = [['ሌላ ትዕዛዝ'],['/ሰርዝ']]
     if(update.message.text=='አዎ'):
         logger.info("User %s canceled the conversation.", update.message.text)
         update.message.reply_text(
@@ -247,15 +247,15 @@ def main() -> None:
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start),],
         states={
-            START: [MessageHandler(Filters.text & ~Filters.command, start), CommandHandler('start', start)],
-            REGISTER: [MessageHandler(Filters.text & ~Filters.command, register), CommandHandler('start', start)],
+            START: [MessageHandler(Filters.text & ~Filters.command, start), CommandHandler('start', start),CommandHandler('ሰርዝ', cancel)],
+            REGISTER: [MessageHandler(Filters.text & ~Filters.command, register), CommandHandler('start', start),CommandHandler('ሰርዝ', cancel)],
             GENDER: [MessageHandler(Filters.regex('^(ቁርስ|ምሳ|ጁስ|ኬክ)$'), gender), CommandHandler('start', start)],
-            PHOTO: [MessageHandler(Filters.text & Filters.regex('^(ማንጎ ጁስ|አቮካዶ ጁስ|አናናስ ጁስ|ስፕሪስ ጁስ|ፉል ኖርማል|ፉል ስፔሻል|እንቁላል ፍርፍር|እንቁላል ስልስ|ፈታ ኖርማል|ፈታ ስፔሻል|ፈጢራ በማር|ፈጢራ በእንቁላል|ጨጨብሳ በማር|ጨጨብሳ በእንቁላል|እንጀራ ፍርፍር|በያይነት|ተጋቢኖ|ፓስታ በስጎ|ፓስታ በአትክልት|ሩዝ በስጎ|ሩዝ በአትክልት)$')  & ~Filters.command, photo), CommandHandler('start', start)],
-            AGAIN: [MessageHandler(Filters.text  & ~Filters.command, again), CommandHandler('start', start)],
-            FINISH: [MessageHandler(Filters.text  & ~Filters.command, finish), CommandHandler('start', start)],
-            BIO: [MessageHandler(Filters.text & ~Filters.command, bio), CommandHandler('start', start)],
+            PHOTO: [MessageHandler(Filters.text & Filters.regex('^(ማንጎ ጁስ|አቮካዶ ጁስ|አናናስ ጁስ|ስፕሪስ ጁስ|ፉል ኖርማል|ፉል ስፔሻል|እንቁላል ፍርፍር|እንቁላል ስልስ|ፈታ ኖርማል|ፈታ ስፔሻል|ፈጢራ በማር|ፈጢራ በእንቁላል|ጨጨብሳ በማር|ጨጨብሳ በእንቁላል|እንጀራ ፍርፍር|በያይነት|ተጋቢኖ|ፓስታ በስጎ|ፓስታ በአትክልት|ሩዝ በስጎ|ሩዝ በአትክልት)$')  & ~Filters.command, photo), CommandHandler('start', start),CommandHandler('ሰርዝ', cancel)],
+            AGAIN: [MessageHandler(Filters.text  & ~Filters.command, again), CommandHandler('start', start),CommandHandler('ሰርዝ', cancel)],
+            FINISH: [MessageHandler(Filters.text  & ~Filters.command, finish), CommandHandler('start', start),CommandHandler('ሰርዝ', cancel)],
+            BIO: [MessageHandler(Filters.text & ~Filters.command, bio), CommandHandler('start', start),CommandHandler('ሰርዝ', cancel)],
         },
-        fallbacks=[CommandHandler('cancel', cancel)],
+        fallbacks=[CommandHandler('ሰርዝ', cancel)],
     )
 
     dispatcher.add_handler(conv_handler)
