@@ -250,7 +250,7 @@ def main() -> None:
             START: [MessageHandler(Filters.text & ~Filters.command, start), CommandHandler('start', start)],
             REGISTER: [MessageHandler(Filters.text & ~Filters.command, register), CommandHandler('start', start)],
             GENDER: [MessageHandler(Filters.regex('^(ቁርስ|ምሳ|ጁስ|ኬክ)$'), gender), CommandHandler('start', start)],
-            PHOTO: [MessageHandler(Filters.text & Filters.regex('^(ማንጎ ጁስ|አቮካዶ ጁስ|አናናስ ጁስ|ስፕሪስ ጁስ|ፉል ኖርማል|ፉል ስፔሻል|እንቁላል ፍርፍር|እንቁላል ስልስ|ፈታ ኖርማል|ፈታ ስፔሻል|ፈጢራ በማር|ፈጢራ በእንቁላል|ጨጨብሳ በማር|ጨጨብሳ በእንቁላል|እንጀራ ፍርፍር|በያይነት|ተጋቢኖ|ፓስታ በስጎ|ፓስታ በአትክልት|ሩዝ በስጎ|ሩዝ በአትክልት)$')  & ~Filters.command, photo), CommandHandler('start', start)],
+            PHOTO: [MessageHandler(Filters.text & Filters.regex('^(ማንጎ ጁስ|አቮካዶ ጁስ|ፓፓያ ጁስ|አናናስ ጁስ|ስፕሪስ ጁስ|ፉል ኖርማል|ፉል ስፔሻል|እንቁላል ፍርፍር|እንቁላል ስልስ|ፈታ ኖርማል|ፈታ ስፔሻል|ፈጢራ በማር|ፈጢራ በእንቁላል|ጨጨብሳ በማር|ጨጨብሳ በእንቁላል|እንጀራ ፍርፍር|በያይነት|ተጋቢኖ|ፓስታ በስጎ|ፓስታ በአትክልት|ሩዝ በስጎ|ሩዝ በአትክልት)$')  & ~Filters.command, photo), CommandHandler('start', start)],
             AGAIN: [MessageHandler(Filters.text  & ~Filters.command, again), CommandHandler('start', start)],
             FINISH: [MessageHandler(Filters.text  & ~Filters.command, finish), CommandHandler('start', start)],
             BIO: [MessageHandler(Filters.text & ~Filters.command, bio), CommandHandler('start', start)],
